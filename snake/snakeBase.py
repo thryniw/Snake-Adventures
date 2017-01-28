@@ -1,27 +1,31 @@
-
+from collections import deque
+from time import time
 pixel_size = 5
-pygame = None
-surface = None
+pixel = (pixel_size,pixel_size)
+
 def init(pgame,surface_):
-    pygame = pgame
-    surface = surface_
+    Snake.pygame = pgame
+    Snake.surface = surface_
+    print('pygame initialised')
 
 
 class Snake:
 
     color = 0x5555FF
-
+    pygame = None
+    surface = None
     def __init__(self,start_size,growth,pos):
-        self.size = start_size
-        self.hind = self
-        self.rect = pygame.Rect()
+        self.tail = deque()
         self.dir = 1
         self.changed = False
         self.pos = pos
+        self.wait_time = 0.5
+        self.refresh = time() + self.wait_time
+        while len(self.tail) < start_size:
+            self.size_up()
 
     def size_up(self):
-        self.hind = Tail(self.hind)
-        size += 1
+        self.tail.append(Tail(self.pos))
 
     def left(self):
         if not self.changed:
@@ -44,22 +48,33 @@ class Snake:
             self.changed = True
 
     def __move(self):
-        move = 0
-        if self.dir % 2: move = 1
-        else: move = -1
+        move = pixel_size
+        if self.dir % 2: pass  # move *=1
+        else: move *= -1
         if self.dir// 2: pos[1] += move
-        else: pos[0] += move
+        else: self.pos[0] += move
         
     def update(self):
-        self.hind.erase()
-        move()
+        if time() >= self.refresh:
+            self.tail[-1].erase()
+            self.tail.pop()
+            self.tail.appendleft(Tail(self.pos))
+            self.tail[0].draw()
+            self.__move()
+            self.__draw()
+            self.refresh = time() + self.wait_time
         #self.hi
         
-    def draw(self):
-        pass
+    def __draw(self):
+        self.pygame.draw.rect(Snake.surface,self.color, self.pygame.Rect(pos,pixel))
 
 class Tail:
     color = 0xFFFFFF
-    def __init__(self,ahead):
-        self.ahead = ahead
-        self.pos = ahead.pos
+    def __init__(self,pos):
+        self.pos = pos
+        
+    def erase(self):
+        Snake.pygame.draw.rect(Snake.surface,0x000000, Snake.pygame.Rect(self.pos,pixel))
+        
+    def draw(self):
+        Snake.pygame.draw.rect(Snake.surface,self.color, Snake.pygame.Rect(self.pos,pixel))

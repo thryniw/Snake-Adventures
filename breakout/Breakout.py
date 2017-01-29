@@ -42,7 +42,7 @@ class ball:
             brick_index = self.rect.collidelist(brick_list)
             if(brick_index != -1):
                 self.collide(brick_list[brick_index])
-                brick_list[brick_index].durbility(1)
+                brick_list[brick_index].durability(1,brick_list)
             tail_index = self.rect.collidelist(tail_list)
             if(tail_index != -1):
                 self.collide(tail_list[tail_index])            
@@ -52,8 +52,16 @@ class brick:
     def __init__(self,brick_size,durability):
         self.size = brick_size
         self.durability = durability
-        self.colors = [(255,0,0),(255,102,0),(255,255,0),(0,255,0),(0,0,255),(230,230,250),(255,240,245)]
-        self.color = self.colors[durability-1]
+        self.colors = [(0,0,0),(255,0,0),(255,102,0),(255,255,0),(0,255,0),(0,0,255),(230,230,250),(255,240,245)]
+        self.color = self.colors[durability]
         
     def draw(self):
-        rect = init.pygame.draw.rect(init.surface,self.color,(x,y,self.size)
+        rect = init.pygame.draw.rect(init.surface,self.color,(x,y,self.size))
+        
+    def durability(decrement,ls,index):
+        self.durability -= decrement
+        if (self.durability < 1):
+            self.color = self.colors[self.durability]
+            self.draw()
+            del ls[index]
+            del self

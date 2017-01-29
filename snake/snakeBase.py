@@ -118,7 +118,6 @@ class Snake:
         if index != -1:
             del init.food_list[index]
             self.size_up()
-            print(len(self.tail))
         
     def __draw(self):
         init.pygame.draw.rect(init.surface,self.color, init.pygame.Rect(self.pos,pixel))

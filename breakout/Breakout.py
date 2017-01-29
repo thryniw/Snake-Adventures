@@ -31,8 +31,8 @@ class init:
         init.Brick = brick
     def generate_bricks():
         #meant to read a file that maps the list
-        return [init.Brick([50,50],1),init.Brick([90,50],2),init.Brick([130,50],3),init.Brick([170,50],4),init.Brick([170,70],5)
-        ,init.Brick([130,70],6),init.Brick([90,70],7)]
+        return [init.Brick([50,50],1),init.Brick([90,50],1),init.Brick([130,50],1),init.Brick([170,50],1),init.Brick([170,70],1)
+        ,init.Brick([130,70],1),init.Brick([90,70],1)]
         
 
 class Ball:

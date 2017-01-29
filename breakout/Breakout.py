@@ -25,7 +25,9 @@ class init:
                 if (self.v_durability < 1):
                     del ls[index]
                     del self
-
+                    init.events.append(Event('generate food'))
+                    
+        init.events = []
         init.Brick = brick
     def generate_bricks():
         #meant to read a file that maps the list
@@ -78,4 +80,6 @@ class Ball:
                 self.collide_tail(tail_list[tail_index])            
             self.reset = time.time()+self.wait_time
     
-
+class Event:
+    def __init__(self,description):
+        self.description = description

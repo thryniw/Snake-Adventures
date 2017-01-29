@@ -35,6 +35,9 @@ while True:
         while not handle_events():
             pass
         break
+    for event in breakout.init.events:
+        Snake.generate_food()
+    breakout.init.events.clear()
     pygame.display.update()
     if handle_events(): break;
     time.sleep(0.04)

@@ -1,5 +1,6 @@
 from collections import deque
 from time import time
+import random
 pixel_size = 10
 pixel = (pixel_size,pixel_size)
 
@@ -24,7 +25,25 @@ class init:
                 
             def draw(self):
                 init.pygame.draw.rect(init.surface,self.color, self)
-        init.Tail = Tail 
+        init.Tail = Tail
+        class Food(pygame.Rect):
+            color = 0x00FF00
+            def __init__(self,pos):
+                self.x = pos[0]
+                self.y = pos[1]
+                self.size = pixel
+                self.draw()
+                
+            def draw(self):
+                init.pygame.draw.rect(init.surface,self.color,self)
+        init.Food = Food
+        init.food_list = []
+
+def generate_food():
+    access_region = ((0,200),(500,400))
+    x = random.randrange(access_region[0][0],access_region[1][0],pixel_size)
+    y = random.randrange(access_region[0][1],access_region[1][1],pixel_size)
+    init.food_list.append(init.Food((x,y)))
 
 class Snake:
 
@@ -84,6 +103,7 @@ class Snake:
             self.tail[0].draw()
             self.__move()
             self.__draw()
+            self.__eat()
             self.refresh = time() + self.wait_time
             if init.pygame.Rect(self.pos,pixel).collidelist(self.tail) != -1:
                 return True
@@ -92,10 +112,10 @@ class Snake:
                     return True
             if init.pygame.Rect(self.pos,pixel).collidelist(brick_list) != -1: return True
                     
-    def __eat(self,food_list):
-        index = init.pygame.Rect(self.pos,pixel).collidelist(self.tail)
+    def __eat(self):
+        index = init.pygame.Rect(self.pos,pixel).collidelist(init.food_list)
         if index != -1:
-            del food_list[index]
+            del init.food_list[index]
             self.size_up()
         
     def __draw(self):

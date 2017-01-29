@@ -6,9 +6,7 @@ pixel = (pixel_size,pixel_size)
 
 
 class init:
-    pygame = None
-    surface = None
-    Tail = None
+    
     def __init__(self,pygame,surface):
         init.pygame = pygame
         init.surface = surface
@@ -35,7 +33,7 @@ class Snake:
         self.dir = 1
         self.changed = False
         self.pos = pos
-        self.wait_time = 0.5
+        self.wait_time = 0.2
         self.refresh = time() + self.wait_time
         while len(self.tail) < start_size:
             self.size_up()
@@ -83,7 +81,7 @@ class Snake:
             if init.pygame.Rect(self.pos,pixel).collidelist(self.tail) != -1:
                 return True
             for axis in range(2):
-                if not (-pixel_size < self.pos[axis] < init.surface.get_width()):
+                if not (-pixel_size < self.pos[axis] < init.surface.get_size()[axis]):
                     return True
                     
     def __eat(self,food_list):

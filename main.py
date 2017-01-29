@@ -6,13 +6,13 @@ import time
 
 
 pygame.init()
-surface = pygame.display.set_mode((800,700))
+surface = pygame.display.set_mode((500,400))
 Snake.init(pygame,surface)
 breakout.init(pygame,surface)
 brick_list = breakout.init.generate_bricks()
 
-snake = Snake.Snake(12,0,[400,550])
-ball = breakout.Ball([400,350],(10,10),[-2,-2])
+snake = Snake.Snake(12,0,[250,200])
+ball = breakout.Ball([250,250],(10,10),[-2,-2])
 
 def handle_events():
     for event in pygame.event.get():
@@ -30,7 +30,7 @@ def handle_events():
 
 
 while True:
-    if  ball.update(brick_list,snake.tail) or snake.update():
+    if  ball.update(brick_list,snake.tail) or snake.update(brick_list):
         while not handle_events():
             pass
         break

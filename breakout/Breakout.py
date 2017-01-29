@@ -4,10 +4,10 @@ class init:
         init.pygame = pygame
         init.surface = surface
         class brick(pygame.Rect):
-            def __init__(self,pos,durability,brick_size = (20,10)):
+            def __init__(self,pos,durability,brick_size = (40,20)):
                 self.size = brick_size
                 self.v_durability = durability
-                self.colors = [(0,0,0),(255,0,0),(255,102,0),(255,255,0),(0,255,0),(0,0,255),(230,230,250),(255,240,245)]
+                self.colors = [(0,0,0),(255,0,0),(255,102,0),(255,255,0),(0,255,0),(0,0,255),(75,0,130),(140,0,140)]
                 self.color = self.colors[durability]
                 self.pos = pos
                 self.x = pos[0]
@@ -29,7 +29,8 @@ class init:
         init.Brick = brick
     def generate_bricks():
         #meant to read a file that maps the list
-        return [init.Brick([50,50],1),init.Brick([70,50],2),init.Brick([90,50],3),init.Brick([110,50],4),init.Brick([50,60],7)]
+        return [init.Brick([50,50],1),init.Brick([90,50],2),init.Brick([130,50],3),init.Brick([170,50],4),init.Brick([170,70],5)
+        ,init.Brick([130,70],6),init.Brick([90,70],7)]
         
 
 class Ball:
@@ -52,14 +53,18 @@ class Ball:
             if not (self.size[vector] - self.size[vector] < self.pos[vector] < init.surface.get_size()[vector] - self.size[vector]):
                 self.velocity[vector] *= -1
             
-    def collide(self,brick):
-        y_range = (brick.top,brick.bottom)
-        x_range = (brick.left,brick.right)
+    def collide_brick(self,ls,ind):
+        brick = ls[ind]
         if (self.rect.left < brick.left < self.rect.right) or (self.rect.left < brick.left < self.rect.right):
             self.velocity[0] *= -1
         if (self.rect.top < brick.top < self.rect.bottom) or (self.rect.top < brick.bottom < self.rect.bottom):
             self.velocity[1] *= -1
-                
+            ls[ind].durability(1,ls,ind)
+    
+    def collide_tail(self,tail):
+        if tail.dir: self.velocity[1] *= -1
+        else: self.velocity[0] *= -1
+    
     def update(self,brick_list,tail_list):
         if(time.time() >= self.reset):
             self.draw(self.black)
@@ -67,11 +72,10 @@ class Ball:
             self.draw(self.white)
             brick_index = self.rect.collidelist(brick_list)
             if(brick_index != -1):
-                self.collide(brick_list[brick_index])
-                brick_list[brick_index].durability(1,brick_list,brick_index)
+                self.collide_brick(brick_list,brick_index)
             tail_index = self.rect.collidelist(tail_list)
             if(tail_index != -1):
-                self.collide(tail_list[tail_index])            
+                self.collide_tail(tail_list[tail_index])            
             self.reset = time.time()+self.wait_time
     
 

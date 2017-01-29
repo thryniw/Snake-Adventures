@@ -7,6 +7,7 @@ import time
 
 pygame.display.init()
 surface = pygame.display.set_mode((500,400))
+pygame.display.set_caption('snake_breakout')
 Snake.init(pygame,surface)
 breakout.init(pygame,surface)
 brick_list = breakout.init.generate_bricks()

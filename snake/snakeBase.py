@@ -80,7 +80,17 @@ class Snake:
             self.__move()
             self.__draw()
             self.refresh = time() + self.wait_time
-        #self.hi
+            if init.pygame.Rect(self.pos,pixel).collidelist(self.tail) != -1:
+                return True
+            for axis in range(2):
+                if not (-pixel_size < self.pos[axis] < init.surface.get_width() - pixel_size):
+                    return True
+                    
+    def __eat(self,food_list):
+        index = init.pygame.Rect(self.pos,pixel).collidelist(self.tail)
+        if index != -1:
+            del food_list[index]
+            self.size_up()
         
     def __draw(self):
         init.pygame.draw.rect(init.surface,self.color, init.pygame.Rect(self.pos,pixel))

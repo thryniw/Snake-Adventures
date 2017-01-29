@@ -32,7 +32,8 @@ class init:
     def generate_bricks():
         #meant to read a file that maps the list
         return [init.Brick([50,50],7),init.Brick([90,50],1),init.Brick([130,50],2),init.Brick([170,50],3),init.Brick([170,70],4)
-        ,init.Brick([130,70],5),init.Brick([90,70],6)]
+        ,init.Brick([130,70],5),init.Brick([90,70],6),init.Brick([50,70],6),init.Brick([90,90],4),init.Brick([310,90],7),
+        init.Brick([130,90],1),init.Brick([170,90],5),init.Brick([210,110],6),init.Brick([90,110],6),init.Brick([90,130],6)]
         
 
 class Ball:
@@ -57,7 +58,7 @@ class Ball:
             
     def collide_brick(self,ls,ind):
         brick = ls[ind]
-        if (self.rect.left < brick.left < self.rect.right) or (self.rect.left < brick.left < self.rect.right):
+        if (self.rect.left < brick.left < self.rect.right) or (self.rect.left < brick.right < self.rect.right):
             self.velocity[0] *= -1
         if (self.rect.top < brick.top < self.rect.bottom) or (self.rect.top < brick.bottom < self.rect.bottom):
             self.velocity[1] *= -1

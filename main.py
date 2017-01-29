@@ -41,6 +41,7 @@ while True:
         Snake.generate_food()
         ball.wait_time -= 0.002
     breakout.init.events.clear()
+    writing.print_score(str(ball.score))
     pygame.display.update()
     if len(brick_list) == 0:
         while not handle_events():

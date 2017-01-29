@@ -46,6 +46,7 @@ class Ball:
         self.wait_time = 0.05
         self.reset = time.time()+self.wait_time
         self.pos = pos
+        self.score = 0
         
     def draw(self,color):
         self.rect = init.pygame.draw.rect(init.surface,color,(self.pos,self.size))
@@ -63,6 +64,7 @@ class Ball:
         if (self.rect.top < brick.top < self.rect.bottom) or (self.rect.top < brick.bottom < self.rect.bottom):
             self.velocity[1] *= -1
             ls[ind].durability(1,ls,ind)
+        self.score += brick.v_durability * 10
     
     def collide_tail(self,tail):
         if tail.dir=='h': self.velocity[1] *= -1

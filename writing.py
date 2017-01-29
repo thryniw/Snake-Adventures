@@ -10,8 +10,9 @@ class init:
 
 
 def print_score(score):
-    font = init.font(12)
-    text_image = font.render(str(score), True, 0xFFFFFFFF)
+    font = init.font(24)
+    text_image = font.render(str(score), True, (255,255,255,255))
+    init.pygame.draw.rect(init.surface,(0,0,0,255),init.pygame.Rect((init.surface.get_width()-text_image.get_width(),0),text_image.get_size()))
     init.surface.blit(text_image, (init.surface.get_width()-text_image.get_width(),0))
     
 def print_win():

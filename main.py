@@ -34,7 +34,7 @@ def handle_events():
 while True:
     if  ball.update(brick_list,snake.tail) or snake.update(brick_list):
         while not handle_events():
-            #writing.print_loss()
+            writing.print_loss()
             pygame.display.update()
         break
     for event in breakout.init.events:
@@ -43,7 +43,7 @@ while True:
     pygame.display.update()
     if len(brick_list) == 0:
         while not handle_events():
-            #writing.print_win()
+            writing.print_win()
             pygame.display.update()
     if handle_events(): break;
     time.sleep(0.04)

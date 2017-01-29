@@ -35,7 +35,7 @@ class init:
         for column in range(0,460,40):
             dur = (dur+1) % 7 + 1
             for row in range(0,7*20,20):
-                rainbow.append(init.Brick([row,column],dur))
+                rainbow.append(init.Brick([column,row],dur))
         return rainbow
         
 

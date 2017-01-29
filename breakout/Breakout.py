@@ -30,10 +30,13 @@ class init:
         init.events = []
         init.Brick = brick
     def generate_bricks():
-        #meant to read a file that maps the list
-        return [init.Brick([50,50],7),init.Brick([90,50],1),init.Brick([130,50],2),init.Brick([170,50],3),init.Brick([170,70],4)
-        ,init.Brick([130,70],5),init.Brick([90,70],6),init.Brick([50,70],6),init.Brick([90,90],4),init.Brick([310,90],7),
-        init.Brick([130,90],1),init.Brick([170,90],5),init.Brick([210,110],6),init.Brick([90,110],6),init.Brick([90,130],6)]
+        rainbow = []
+        dur = 0
+        for column in range(0,460,40):
+            dur = (dur+1) % 7 + 1
+            for row in range(0,7*20,20):
+                rainbow.append(init.Brick([row,column],dur))
+        return rainbow
         
 
 class Ball:

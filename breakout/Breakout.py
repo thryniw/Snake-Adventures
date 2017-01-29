@@ -66,6 +66,7 @@ class Ball:
     def collide_tail(self,tail):
         if tail.dir=='h': self.velocity[1] *= -1
         else: self.velocity[0] *= -1
+        tail.draw()
     
     def update(self,brick_list,tail_list):
         if(time.time() >= self.reset):

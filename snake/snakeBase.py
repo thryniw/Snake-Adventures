@@ -27,7 +27,7 @@ class init:
                 init.pygame.draw.rect(init.surface,self.color, self)
         init.Tail = Tail
         class Food(pygame.Rect):
-            color = 0x00FF00
+            color = 0xFFFF55
             def __init__(self,pos):
                 self.x = pos[0]
                 self.y = pos[1]
@@ -62,7 +62,7 @@ class Snake:
         if self.dir == 1 or self.dir == 0:
             direct = 'h'
         else: direct = 'v'
-        self.tail.append(init.Tail(self.pos,direct))
+        self.tail.appendleft(init.Tail(self.pos,direct))
 
     def left(self):
         if not self.changed and self.dir != 1:
@@ -101,22 +101,24 @@ class Snake:
             self.tail.pop()
             self.tail.appendleft(init.Tail(self.pos,direct))
             self.tail[0].draw()
+            self.__eat()
             self.__move()
             self.__draw()
-            self.__eat()
             self.refresh = time() + self.wait_time
             if init.pygame.Rect(self.pos,pixel).collidelist(self.tail) != -1:
                 return True
             for axis in range(2):
                 if not (-pixel_size < self.pos[axis] < init.surface.get_size()[axis]):
                     return True
-            if init.pygame.Rect(self.pos,pixel).collidelist(brick_list) != -1: return True
+            if init.pygame.Rect(self.pos,pixel).collidelist(brick_list) != -1:
+                return True
                     
     def __eat(self):
         index = init.pygame.Rect(self.pos,pixel).collidelist(init.food_list)
         if index != -1:
             del init.food_list[index]
             self.size_up()
+            print(len(self.tail))
         
     def __draw(self):
         init.pygame.draw.rect(init.surface,self.color, init.pygame.Rect(self.pos,pixel))

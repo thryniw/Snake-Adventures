@@ -62,7 +62,7 @@ class Ball:
             ls[ind].durability(1,ls,ind)
     
     def collide_tail(self,tail):
-        if tail.dir: self.velocity[1] *= -1
+        if tail.dir=='h': self.velocity[1] *= -1
         else: self.velocity[0] *= -1
     
     def update(self,brick_list,tail_list):

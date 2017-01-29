@@ -5,7 +5,7 @@ import pygame
 import time
 
 
-pygame.init()
+pygame.display.init()
 surface = pygame.display.set_mode((500,400))
 Snake.init(pygame,surface)
 breakout.init(pygame,surface)
@@ -37,3 +37,4 @@ while True:
     pygame.display.update()
     if handle_events(): break;
     time.sleep(0.04)
+pygame.display.quit()

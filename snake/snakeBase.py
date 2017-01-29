@@ -40,7 +40,10 @@ class Snake:
             self.size_up()
 
     def size_up(self):
-        self.tail.append(init.Tail(self.pos,self.dir % 2))
+        if self.dir == 1 or self.dir == 0:
+            direct = 'h'
+        else: direct = 'v'
+        self.tail.append(init.Tail(self.pos,direct))
 
     def left(self):
         if not self.changed and self.dir != 1:
@@ -72,9 +75,12 @@ class Snake:
         
     def update(self,brick_list):
         if time() >= self.refresh:
+            if self.dir == 1 or self.dir == 0:
+                direct = 'h'
+            else: direct = 'v'    
             self.tail[-1].erase()
             self.tail.pop()
-            self.tail.appendleft(init.Tail(self.pos,self.dir % 2))
+            self.tail.appendleft(init.Tail(self.pos,direct))
             self.tail[0].draw()
             self.__move()
             self.__draw()

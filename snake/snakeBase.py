@@ -53,7 +53,7 @@ class Snake:
         self.dir = 1
         self.changed = False
         self.pos = pos
-        self.wait_time = 0.2
+        self.wait_time = 0.32
         self.refresh = time() + self.wait_time
         while len(self.tail) < start_size:
             self.size_up()
@@ -63,6 +63,7 @@ class Snake:
             direct = 'h'
         else: direct = 'v'
         self.tail.appendleft(init.Tail(self.pos,direct))
+        self.wait_time -= 0.01
 
     def left(self):
         if not self.changed and self.dir != 1:

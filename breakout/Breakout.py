@@ -31,8 +31,8 @@ class init:
         init.Brick = brick
     def generate_bricks():
         #meant to read a file that maps the list
-        return [init.Brick([50,50],1),init.Brick([90,50],1),init.Brick([130,50],1),init.Brick([170,50],1),init.Brick([170,70],1)
-        ,init.Brick([130,70],1),init.Brick([90,70],1)]
+        return [init.Brick([50,50],7),init.Brick([90,50],1),init.Brick([130,50],2),init.Brick([170,50],3),init.Brick([170,70],4)
+        ,init.Brick([130,70],5),init.Brick([90,70],6)]
         
 
 class Ball:
@@ -42,7 +42,7 @@ class Ball:
         self.screen = (init.surface.get_width(), init.surface.get_height())
         self.white = (255,255,255)
         self.black = (0,0,0)
-        self.wait_time = 0.01
+        self.wait_time = 0.05
         self.reset = time.time()+self.wait_time
         self.pos = pos
         

@@ -14,7 +14,7 @@ writing.init(pygame,surface)
 brick_list = breakout.init.generate_bricks()
 
 snake = Snake.Snake(12,0,[250,200])
-ball = breakout.Ball([250,250],(10,10),[-2,-2])
+ball = breakout.Ball([250,250],(10,10),[-3,-3])
 
 def handle_events():
     for event in pygame.event.get():
@@ -39,6 +39,7 @@ while True:
         break
     for event in breakout.init.events:
         Snake.generate_food()
+        ball.wait_time -= 0.002
     breakout.init.events.clear()
     pygame.display.update()
     if len(brick_list) == 0:

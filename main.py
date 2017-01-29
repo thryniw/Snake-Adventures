@@ -46,6 +46,7 @@ while True:
         while not handle_events():
             writing.print_win()
             pygame.display.update()
+        break
     if handle_events(): break;
     time.sleep(0.04)
 pygame.display.quit()
